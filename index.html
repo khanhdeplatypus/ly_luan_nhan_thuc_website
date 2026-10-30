@@ -1637,6 +1637,21 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;box
 .ct{font-size:24px;font-weight:700}
 .quote{font-size:30px;line-height:1.32}
 .quote small,.kicker{font-family:'Lora',Georgia,serif}
+
+/* ===== PARALLAX NHIỀU LỚP ===== */
+#px{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.pxl{position:absolute;top:0;left:0;height:100%;will-change:transform;transition:transform 1.7s cubic-bezier(.65,0,.35,1)}
+#px-far{width:1px}
+#px-far svg{position:absolute;left:-10vw;bottom:0;height:46vh;color:var(--accent);opacity:.18}
+#px-far svg *{vector-effect:non-scaling-stroke}
+.pw{position:absolute;font-family:'EB Garamond',Georgia,serif;font-style:italic;color:var(--accent);white-space:nowrap;line-height:1}
+.pn{position:absolute;color:var(--accent2)}
+.reveal{--mx:0;--my:0}
+.reveal .slides section.present .float,.reveal .slides section.present .laurel,.reveal .slides section.present .kant,
+.reveal .slides section.present .orbitbox,.reveal .slides section.present .known,.reveal .slides section.present .spiral-svg,
+.reveal .slides section.present .nest,.reveal .slides section.present .thermos,.reveal .slides section.present .stairs{
+  translate:calc(var(--mx) * var(--pd,-14px)) calc(var(--my) * var(--pd,-14px));transition:translate .8s cubic-bezier(.2,.8,.2,1)}
+.reveal .slides section.present .float{--pd:-22px}
 </style>
 </head>
 
@@ -1645,6 +1660,11 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;box
 <canvas id="stars"></canvas>
 <div class="orb" id="orb"></div>
 <div class="orb" id="orb2"></div>
+<div id="px" aria-hidden="true">
+  <div class="pxl" id="px-far" data-depth="0.12"><svg id="skyline"></svg></div>
+  <div class="pxl" id="px-mid" data-depth="0.35"></div>
+  <div class="pxl" id="px-near" data-depth="0.75"></div>
+</div>
 
 <!-- gradient dùng chung cho các SVG -->
 <svg width="0" height="0" style="position:absolute">
@@ -2730,7 +2750,7 @@ const pick = k => () => { const s = curQuiz(); if (s) answer(s, k); };
   let W, H, dpr, P = [], col = '#a78bfa';
   const resize = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; };
   resize(); addEventListener('resize', resize);
-  for (let i = 0; i < 70; i++) P.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25, r: Math.random() * 1.6 + .4 });
+  for (let i = 0; i < 30; i++) P.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .25, vy: (Math.random() - .5) * .25, r: Math.random() * 1.6 + .4 });
   setInterval(() => { col = getComputedStyle(document.body).getPropertyValue('--accent').trim() || col; }, 250);
   const link = 0;
   (function frame(){
@@ -2751,6 +2771,66 @@ const pick = k => () => { const s = curQuiz(); if (s) answer(s, k); };
   })();
 })();
 
+
+/* =========================================================
+   PARALLAX: 3 lớp trôi theo slide + nghiêng theo chuột
+   ========================================================= */
+const PX = (function(){
+  const n = document.querySelectorAll('.reveal .slides > section').length || 36;
+  const STEP = 26;                       // vw mỗi slide ở độ sâu 1
+  const rnd = (i) => { const x = Math.sin(i * 91.7 + 3.1) * 10000; return x - Math.floor(x); };
+  // --- lớp xa: đường chân trời cổ điển ---
+  const sky = document.getElementById('skyline');
+  const W = Math.ceil((n * STEP * 0.12 + 130) * 19.2);   // đơn vị ~ px tại 1920
+  let g = '', x = 0, k = 0;
+  const S = 'fill="none" stroke="currentColor" stroke-width="1.6"';
+  const temple = (x) => { let h = `<path ${S} d="M${x} 600 V560 H${x+300} V600 M${x-10} 560 H${x+310} M${x} 300 L${x+150} 230 L${x+300} 300 Z M${x-10} 300 H${x+310} V318 H${x-10} Z"/>`;
+    for (let c = 0; c < 6; c++) { const cx = x + 20 + c * 52; h += `<path ${S} d="M${cx} 318 V560 M${cx+16} 318 V560 M${cx-4} 318 H${cx+20} M${cx-4} 556 H${cx+20}"/>`; } return [h, 340]; };
+  const aqueduct = (x) => { let h = `<path ${S} d="M${x} 380 H${x+420} M${x} 396 H${x+420}"/>`;
+    for (let a = 0; a < 5; a++) { const ax = x + a * 84; h += `<path ${S} d="M${ax} 600 V470 A42 42 0 0 1 ${ax+84} 470 V600"/><path ${S} d="M${ax+10} 396 V430 M${ax+74} 396 V430"/>`; } return [h, 450]; };
+  const obelisk = (x) => [`<path ${S} d="M${x} 600 L${x+14} 260 L${x+30} 230 L${x+46} 260 L${x+60} 600 Z M${x-20} 600 H${x+80}"/>`, 120];
+  const cypress = (x) => [`<path ${S} d="M${x+20} 600 C${x-8} 520 ${x+2} 400 ${x+20} 330 C${x+38} 400 ${x+48} 520 ${x+20} 600 Z"/>`, 60];
+  const hill = (x) => [`<path ${S} d="M${x} 600 Q${x+160} 470 ${x+320} 560 T${x+620} 540"/>`, 380];
+  const arch = (x) => [`<path ${S} d="M${x} 600 V380 H${x+200} V600 M${x+40} 600 V470 A60 60 0 0 1 ${x+160} 470 V600 M${x-10} 380 H${x+210} M${x} 360 H${x+200} V380"/>`, 260];
+  const parts = [temple, cypress, cypress, aqueduct, obelisk, hill, arch, cypress, temple, obelisk, cypress, hill];
+  while (x < W) { const [h, w] = parts[k % parts.length](x); g += h; x += w + 40 + rnd(k) * 120; k++; }
+  g += `<path ${S} opacity=".6" d="M0 600 H${x}"/>`;
+  sky.setAttribute('viewBox', `0 0 ${x} 620`); sky.setAttribute('preserveAspectRatio', 'xMinYMax meet');
+  sky.style.width = (x / 19.2 * 1.0) + 'vw'; sky.innerHTML = g;
+  // --- lớp giữa: từ Hy Lạp ---
+  const words = ['γνῶσις','λόγος','πρᾶξις','ἀλήθεια','σοφία','ἰδέα','νοῦς','φιλοσοφία','Φ','Λ','∞','διαλεκτική'];
+  const mid = document.getElementById('px-mid');
+  const midW = n * STEP * 0.35 + 140; let mh = '';
+  for (let i = 0; i < Math.ceil(midW / 22); i++) {
+    const sz = 48 + rnd(i + 7) * 110, op = .035 + rnd(i + 3) * .04;
+    mh += `<span class="pw" style="left:${(i * 22 + rnd(i) * 12).toFixed(1)}vw;top:${(6 + rnd(i + 11) * 80).toFixed(1)}vh;font-size:${sz.toFixed(0)}px;opacity:${op.toFixed(3)};transform:rotate(${(rnd(i+5)*16-8).toFixed(1)}deg)">${words[i % words.length]}</span>`;
+  }
+  mid.innerHTML = mh;
+  // --- lớp gần: lá nguyệt quế & sao ---
+  const near = document.getElementById('px-near');
+  const nearW = n * STEP * 0.75 + 140; let nh = '';
+  for (let i = 0; i < Math.ceil(nearW / 9); i++) {
+    const left = (i * 9 + rnd(i + 2) * 7).toFixed(1), top = (rnd(i + 21) * 95).toFixed(1), sz = 16 + rnd(i + 4) * 26, rot = rnd(i + 9) * 360;
+    nh += (i % 3 === 0)
+      ? `<span class="pn" style="left:${left}vw;top:${top}vh;font-size:${(sz*.7).toFixed(0)}px;opacity:.28">✦</span>`
+      : `<svg class="pn" style="left:${left}vw;top:${top}vh;width:${sz.toFixed(0)}px;height:${sz.toFixed(0)}px;opacity:.22;transform:rotate(${rot.toFixed(0)}deg)" viewBox="0 0 20 40"><path d="M10 0 C20 12 20 28 10 40 C0 28 0 12 10 0Z M10 3 V37" fill="currentColor" stroke="rgba(0,0,0,.25)" stroke-width="1"/></svg>`;
+  }
+  near.innerHTML = nh;
+  // --- di chuyển ---
+  const layers = [...document.querySelectorAll('.pxl')];
+  let idx = 0, mx = 0, my = 0;
+  const apply = () => layers.forEach(L => {
+    const d = +L.dataset.depth;
+    L.style.transform = `translate3d(calc(${(-idx * STEP * d).toFixed(2)}vw + ${(mx * -40 * d).toFixed(1)}px), ${(my * -24 * d).toFixed(1)}px, 0)`;
+  });
+  addEventListener('mousemove', e => {
+    mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5;
+    const r = document.querySelector('.reveal'); r.style.setProperty('--mx', mx.toFixed(3)); r.style.setProperty('--my', my.toFixed(3));
+    apply();
+  });
+  return { go(i){ idx = i; apply(); } };
+})();
+
 /* =========================================================
    7. KHỞI TẠO REVEAL + liên kết HUD / quả cầu / màu
    ========================================================= */
@@ -2759,7 +2839,7 @@ Reveal.initialize({
   center: false, hash: true,
   controls: true, progress: true, slideNumber: 'c/t',
   transition: 'fade', transitionSpeed: 'slow', backgroundTransition: 'fade',
-  autoAnimateDuration: 1.0,
+  autoAnimateDuration: 1.2,
   autoAnimateEasing: 'cubic-bezier(0.65, 0, 0.35, 1)',
   keyboard: {
     49: pick('A'), 50: pick('B'), 51: pick('C'), 52: pick('D'),
@@ -2771,6 +2851,7 @@ Reveal.initialize({
 const orb = document.getElementById('orb'), orb2 = document.getElementById('orb2');
 function onSlide(slide){
   if (!slide) return;
+  PX.go(Reveal.getIndices(slide).h);
   const part = slide.dataset.part || '0';
   document.body.dataset.part = part;
   document.querySelectorAll('#hud .n').forEach(n => {

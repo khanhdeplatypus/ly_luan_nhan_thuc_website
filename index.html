@@ -6,8 +6,8 @@
 <title>Lý luận nhận thức duy vật biện chứng</title>
 
 <!-- reveal.js 5 -->
-<link rel="stylesheet" href="dist/reset.css">
-<link rel="stylesheet" href="dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <!-- Font hỗ trợ tiếng Việt -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -399,6 +399,21 @@ iconify-icon{display:inline-block;vertical-align:middle}
 .timer.up b{font-size:13px;text-align:center;line-height:1.1;animation:none}
 .qhint{font-size:14px;color:var(--muted);text-align:right}
 
+
+/* Khung chân dung triết gia: đặt ảnh vào thư mục img/ (vd img/kant.jpg) */
+.ppl{display:flex;gap:10px;margin-left:auto}
+.person{display:flex;flex-direction:column;align-items:center;gap:2px}
+.person small{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.pf{position:relative;flex:none;width:48px;height:48px;border-radius:50%;overflow:hidden;display:inline-grid;place-items:center;
+  background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.22),rgba(6,9,24,.92) 70%);
+  border:2px solid var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent2) 35%,transparent),0 6px 18px -6px var(--accent);vertical-align:middle}
+.pf iconify-icon{font-size:28px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.pf.lg iconify-icon{font-size:50px}
+.reveal section.present .pf iconify-icon{animation:float 5s ease-in-out infinite}
+.pf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;filter:grayscale(.15) contrast(1.05)}
+.pf.fl{float:left;margin:2px 16px 4px 0}
+.pf.lg{width:84px;height:84px}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
@@ -492,6 +507,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
         <iconify-icon class="float d2" icon="fluent-emoji-flat:books"></iconify-icon>
         <iconify-icon class="float d3" icon="fluent-emoji-flat:globe-showing-asia-australia"></iconify-icon>
         <iconify-icon class="float" icon="fluent-emoji-flat:light-bulb"></iconify-icon>
+        <iconify-icon class="float d2" icon="fluent-emoji-flat:owl"></iconify-icon>
       </div>
     </div>
   </div>
@@ -533,18 +549,18 @@ iconify-icon{display:inline-block;vertical-align:middle}
     <div class="row" style="flex:1;align-items:center">
       <div class="col f1">
         <div class="card a left" style="--i:1">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:crystal-ball"></iconify-icon><div class="ct">Chủ nghĩa Duy tâm</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:crystal-ball"></iconify-icon><div class="ct">Chủ nghĩa Duy tâm</div><span class="ppl"><span class="person"><span class="pf " title="George Berkeley (1685–1753)"><img src="img/berkeley.jpg" alt="George Berkeley (1685–1753)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:eye"></iconify-icon></span><small>Berkeley</small></span><span class="person"><span class="pf " title="Plato (427–347 TCN)"><img src="img/plato.jpg" alt="Plato (427–347 TCN)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:classical-building"></iconify-icon></span><small>Plato</small></span><span class="person"><span class="pf " title="G.W.F. Hegel (1770–1831)"><img src="img/hegel.jpg" alt="G.W.F. Hegel (1770–1831)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:owl"></iconify-icon></span><small>Hegel</small></span></span></div>
           <div class="pts">
             <div><b>Chủ quan</b> (G. Berkeley): phủ nhận khách quan → sự vật là “phức hợp cảm giác”.</div>
             <div><b>Khách quan</b> (Plato, Hegel): hồi tưởng ý niệm / Tinh thần thế giới tự ý thức.</div>
           </div>
         </div>
         <div class="card a left" style="--i:2">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:thinking-face"></iconify-icon><div class="ct">Thuyết Hoài nghi (D. Hume)</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:thinking-face"></iconify-icon><div class="ct">Thuyết Hoài nghi (D. Hume)</div><span class="ppl"><span class="person"><span class="pf " title="David Hume (1711–1776)"><img src="img/hume.jpg" alt="David Hume (1711–1776)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:red-question-mark"></iconify-icon></span><small>Hume</small></span></span></div>
           <div class="pts"><div>Nghi ngờ tính xác thực của <b>mọi</b> tri thức nhân loại.</div></div>
         </div>
         <div class="card a left glow" style="--i:3">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:locked"></iconify-icon><div class="ct">Thuyết Bất khả tri (I. Kant)</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:locked"></iconify-icon><div class="ct">Thuyết Bất khả tri (I. Kant)</div><span class="ppl"><span class="person"><span class="pf " title="Immanuel Kant (1724–1804)"><img src="img/kant.jpg" alt="Immanuel Kant (1724–1804)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:locked"></iconify-icon></span><small>Kant</small></span></span></div>
           <div class="pts"><div>Dựng <span class="hl">bức tường ngăn cách tuyệt đối</span> giữa cái ta biết và bản chất sự vật.</div></div>
         </div>
       </div>
@@ -567,15 +583,15 @@ iconify-icon{display:inline-block;vertical-align:middle}
     <div class="row" style="flex:1;align-items:center">
       <div class="col f1">
         <div class="card a left" style="--i:1">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:mirror"></iconify-icon><div class="ct">Hạn chế của CNDV trước Mác (Feuerbach)</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:mirror"></iconify-icon><div class="ct">Hạn chế của CNDV trước Mác (Feuerbach)</div><span class="ppl"><span class="person"><span class="pf " title="Ludwig Feuerbach (1804–1872)"><img src="img/feuerbach.jpg" alt="Ludwig Feuerbach (1804–1872)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:mirror"></iconify-icon></span><small>Feuerbach</small></span></span></div>
           <div class="pts"><div>Nhận thức như <b>tấm gương soi thụ động</b>, máy móc.</div><div>Thiếu vắng hoàn toàn vai trò của hoạt động thực tiễn.</div></div>
         </div>
         <div class="card fragment rise">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:scroll"></iconify-icon><div class="ct">C. Mác (1845) — Luận cương về Phoi-ơ-bắc</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:scroll"></iconify-icon><div class="ct">C. Mác (1845) — Luận cương về Phoi-ơ-bắc</div><span class="ppl"><span class="person"><span class="pf " title="Karl Marx (1818–1883)"><img src="img/marx.jpg" alt="Karl Marx (1818–1883)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:scroll"></iconify-icon></span><small>C. Mác</small></span></span></div>
           <div class="pts"><div>Luận đề 1: <span class="hl">đưa hoạt động thực tiễn</span> vào lý luận nhận thức.</div></div>
         </div>
         <div class="card glow fragment rise">
-          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:hammer"></iconify-icon><div class="ct">V.I. Lênin đập tan bức tường Kant</div></div>
+          <div class="row" style="align-items:center;gap:12px"><iconify-icon style="font-size:40px" icon="fluent-emoji-flat:hammer"></iconify-icon><div class="ct">V.I. Lênin đập tan bức tường Kant</div><span class="ppl"><span class="person"><span class="pf " title="V.I. Lênin (1870–1924)"><img src="img/lenin.jpg" alt="V.I. Lênin (1870–1924)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:hammer"></iconify-icon></span><small>Lênin</small></span></span></div>
           <div class="pts"><div>Không có ranh giới nguyên tắc giữa Hiện tượng và “Vật tự nó”.</div>
           <div>Chỉ có khác biệt giữa cái <span class="hl">ĐÃ BIẾT</span> và cái <span class="hl2">CHƯA BIẾT</span>.</div></div>
         </div>
@@ -756,7 +772,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
       <div class="role sm" data-id="role4" style="left:930px;top:195px;width:210px;height:185px">
         <div class="rh"><iconify-icon icon="fluent-emoji-flat:balance-scale"></iconify-icon><div><small>Vai trò 4</small><b>Tiêu chuẩn chân lý</b></div></div>
       </div>
-      <div class="quote fragment rise" style="position:absolute;left:0;right:0;bottom:0;font-size:21px;padding:10px 22px">“Một khi thực tiễn xuất hiện nhu cầu kỹ thuật, nó thúc đẩy khoa học tiến lên nhanh hơn cả mười trường đại học.” <small style="display:inline;margin-left:8px">— Ph. Ăngghen</small></div>
+      <div class="quote fragment rise" style="position:absolute;left:0;right:0;bottom:0;font-size:21px;padding:10px 22px"><span class="pf fl" title="Friedrich Engels (1820–1895)"><img src="img/engels.jpg" alt="Friedrich Engels (1820–1895)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:factory"></iconify-icon></span>“Một khi thực tiễn xuất hiện nhu cầu kỹ thuật, nó thúc đẩy khoa học tiến lên nhanh hơn cả mười trường đại học.” <small style="display:inline;margin-left:8px">— Ph. Ăngghen</small></div>
     </div>
   </div>
 </section>
@@ -827,7 +843,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
     <header class="hd"><div class="chip" data-id="chip">03</div>
       <div><div class="kicker" data-id="kicker">Quy luật nhận thức</div>
       <h2 class="a">Quy luật biện chứng của V.I. Lênin</h2></div></header>
-    <div class="quote a blur" style="--i:1;font-size:26px">“Từ trực quan sinh động đến tư duy trừu tượng, và từ tư duy trừu tượng đến thực tiễn — đó là con đường biện chứng của sự nhận thức chân lý, của sự nhận thức hiện thực khách quan.”<small>— V.I. Lênin, Bút ký triết học</small></div>
+    <div class="quote a blur" style="--i:1;font-size:26px"><span class="pf fl lg" title="V.I. Lênin (1870–1924)"><img src="img/lenin.jpg" alt="V.I. Lênin (1870–1924)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:hammer"></iconify-icon></span>“Từ trực quan sinh động đến tư duy trừu tượng, và từ tư duy trừu tượng đến thực tiễn — đó là con đường biện chứng của sự nhận thức chân lý, của sự nhận thức hiện thực khách quan.”<small>— V.I. Lênin, Bút ký triết học</small></div>
     <div class="ladder">
       <div class="step s1" data-id="step1"><iconify-icon icon="fluent-emoji-flat:eye"></iconify-icon><b>Trực quan sinh động</b><small>Nhận thức cảm tính</small></div>
       <iconify-icon class="arr" icon="ph:arrow-up-right-bold"></iconify-icon>
@@ -1142,7 +1158,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
         <div class="card a right" style="--i:1"><div class="pts" style="margin:0">
           <div>Không tách rời: chân lý tương đối <span class="hl">chứa đựng yếu tố</span> của chân lý tuyệt đối.</div>
           <div>Tri thức đúng từng phần được bổ sung, sửa chữa, làm sâu sắc qua thực tiễn.</div></div></div>
-        <div class="quote a right" style="--i:2;font-size:20px;padding:12px 18px">Chân lý tuyệt đối được cấu thành từ tổng số những chân lý tương đối đang phát triển.<small>— V.I. Lênin (diễn ý)</small></div>
+        <div class="quote a right" style="--i:2;font-size:20px;padding:12px 18px"><span class="pf fl" title="V.I. Lênin (1870–1924)"><img src="img/lenin.jpg" alt="V.I. Lênin (1870–1924)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:hammer"></iconify-icon></span>Chân lý tuyệt đối được cấu thành từ tổng số những chân lý tương đối đang phát triển.<small>— V.I. Lênin (diễn ý)</small></div>
         <div class="grid2 fragment rise">
           <div class="card warn" style="padding:10px 14px;font-size:15.5px"><iconify-icon icon="fluent-emoji-flat:locked"></iconify-icon> Tuyệt đối hóa cái đã biết → <b>giáo điều, bảo thủ</b></div>
           <div class="card warn" style="padding:10px 14px;font-size:15.5px"><iconify-icon icon="fluent-emoji-flat:game-die"></iconify-icon> Tuyệt đối hóa tính tương đối → <b>hoài nghi, tùy tiện</b></div>
@@ -1176,7 +1192,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
       <div class="col f1">
         <div class="card a right" style="--i:2"><div class="ct">Khái niệm</div>
           <p style="font-size:19px">Chân lý gắn với <span class="hl">đối tượng xác định</span> và các điều kiện, quan hệ, không gian, thời gian cụ thể.</p></div>
-        <div class="quote a right" style="--i:3;font-size:30px">“Chân lý luôn luôn là cụ thể.”<small>— V.I. Lênin</small></div>
+        <div class="quote a right" style="--i:3;font-size:30px"><span class="pf fl" title="V.I. Lênin (1870–1924)"><img src="img/lenin.jpg" alt="V.I. Lênin (1870–1924)" onerror="this.remove()"><iconify-icon icon="fluent-emoji-flat:hammer"></iconify-icon></span>“Chân lý luôn luôn là cụ thể.”<small>— V.I. Lênin</small></div>
         <div class="card glow fragment rise" style="display:flex;gap:14px;align-items:center">
           <iconify-icon style="font-size:50px;flex:none" icon="fluent-emoji-flat:compass"></iconify-icon>
           <p style="font-size:18.5px"><b>Bài học:</b> không bê nguyên một nhận định đúng ở hoàn cảnh A sang hoàn cảnh B mà bỏ qua điều kiện áp dụng.</p>
@@ -1289,8 +1305,7 @@ iconify-icon{display:inline-block;vertical-align:middle}
 </div>
 </div>
 
-<script src="dist/reveal.js"></script>
-<script src="dist/plugin/notes.js" onerror="this.remove();var s=document.createElement('script');s.src='plugin/notes/notes.js';document.head.appendChild(s)"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script>
 /* =========================================================
    1. DỮ LIỆU MINIGAME
@@ -1502,7 +1517,6 @@ const pick = k => () => { const s = curQuiz(); if (s) answer(s, k); };
    7. KHỞI TẠO REVEAL + liên kết HUD / quả cầu / màu
    ========================================================= */
 Reveal.initialize({
-  plugins: (typeof RevealNotes !== 'undefined') ? [ RevealNotes ] : [],
   width: 1280, height: 720, margin: 0.04,
   center: false, hash: true,
   controls: true, progress: true, slideNumber: 'c/t',
